@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/IbrahimSwaiss/NodeDemo/issues"
   },
-  "homepage": "https://github.com/IbrahimSwaiss/NodeDemo#readme"
+  "homepage": "https://github.com/IbrahimSwaiss/NodeDemo#readme",
+  "dependencies": {
+    "underscore": "^1.12.1"
+  }
 }
