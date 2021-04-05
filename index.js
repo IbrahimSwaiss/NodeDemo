@@ -1,16 +1,40 @@
 const express = require('express');
 const app = express();
 
+//app.use to use middleware to use it request pipline
+//json middleware
+app.use(express.json);
+
+const courses = [
+    { id: 1, name: 'math' },
+    { id: 2, name: 'sience' },
+    { id: 3, name: 'phsyics' },
+]
+
 app.get('/', (req, res) => {
     res.send('Hello world');
 });
 
 app.get('/api/courses', (req, res) => {
-    res.send([1, 2, 3]);
+    res.send(courses);
 });
 
 app.get('/api/courses/:id', (req, res) => {
-    res.send(req.params.id);
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) {//404
+        res.status(404).send('the course does not exist!');
+    } else {
+        res.send(course);
+    }
+});
+
+app.post('/api/courses', (req, res) => {
+    const course = {
+        id: courses.length + 1,
+        name: req.body.name
+    }
+    courses.push(course);
+    res.send(course);
 });
 
 const port = process.env.PORT || 3000;
