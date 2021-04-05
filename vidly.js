@@ -4,13 +4,23 @@ const app = express();
 const Joi = require('joi');
 const helemt = require('helmet');
 const morgan = require('morgan');
-
 const logger = require('./middlewares/logger');
+const config = require('config');
+const appName = config.get('name');
+const appPassword = config.get('password');
+
+console.log(appName);
+console.log(appPassword);
+//export NODE_ENV=development
+// console.log(process.env.NODE_ENV);
+// console.log(app.get('env'));
 
 app.use(express.json());// set req.body
 app.use(logger)// custome middleware function
 app.use(helemt());
-app.use(morgan('tiny'));
+
+if (app.get('env') == 'development')
+    app.use(morgan('tiny'));
 
 app.get('/api/all-movies', (req, res) => {// route handler function (middleware)
     res.send('test');
