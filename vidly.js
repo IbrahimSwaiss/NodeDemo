@@ -2,11 +2,15 @@
 const express = require('express');
 const app = express();
 const Joi = require('joi');
+const helemt = require('helmet');
+const morgan = require('morgan');
 
 const logger = require('./middlewares/logger');
 
 app.use(express.json());// set req.body
 app.use(logger)// custome middleware function
+app.use(helemt());
+app.use(morgan('tiny'));
 
 app.get('/api/all-movies', (req, res) => {// route handler function (middleware)
     res.send('test');
